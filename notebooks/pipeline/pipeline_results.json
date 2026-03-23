@@ -1,0 +1,55 @@
+============================================================
+AGI Pipeline - Trial Execution and ICP Calculation
+============================================================
+
+1. Initializing Dummy AGI...
+   AGI: DummyAGI_V1 v1.0.0
+   Capabilities: {'max_complexity': 0.8, ...}
+
+2. Initializing ICP Calculator...
+   Weights: {'complexity': 0.4, 'performance': 0.4, 'resources': 0.2}
+
+3. Initializing Trial Runner...
+
+4. Running 10 trials...
+------------------------------------------------------------
+Running trial 1/10... ICP=0.567, Time=1.23s, Success=True
+Running trial 2/10... ICP=0.432, Time=0.89s, Success=True
+...
+
+============================================================
+PIPELINE RESULTS
+============================================================
+
+Overall Statistics:
+  Total Trials: 10
+  Success Rate: 100.00%
+
+ICP Statistics (0=simple, 1=complex):
+  Mean ICP: 0.523
+  Median ICP: 0.512
+  Std Dev: 0.098
+  Range: [0.387, 0.698]
+
+Component Scores (mean):
+  Complexity Score: 0.543
+  Performance Score: 0.487
+  Resource Score: 0.389
+
+Average ICP by Task Type:
+  classification: 0.512
+  regression: 0.534
+  clustering: 0.498
+  optimization: 0.547
+
+Execution Time:
+  Mean per trial: 1.05s
+  Total: 10.50s
+
+7. AGI Performance Summary:
+  Total tasks processed: 10
+  Average performance: 0.823
+
+============================================================
+Pipeline execution completed successfully!
+============================================================
