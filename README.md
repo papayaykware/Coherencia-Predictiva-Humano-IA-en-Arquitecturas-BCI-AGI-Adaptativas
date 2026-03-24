@@ -153,3 +153,18 @@ Click para expandir referencias clave
 Apache 2.0 — ver archivo LICENSE
 ⚠️ Disclaimer: Proyecto piloto exploratorio. Datos anonimizados. No constituye consejo médico.
 
+## 🤖 Integración con AGI Real (v1.4)
+
+El pipeline ahora soporta conexión con modelos AGI locales (via Ollama) o en la nube (OpenAI). Las características EEG extraídas se pasan como prompt contextual, permitiendo:
+
+- **Respuesta adaptativa**: El AGI responde basado en el estado cognitivo del usuario.
+- **Métricas de coherencia**: Se calcula similitud entre embeddings EEG y AGI para el Índice de Coherencia Predictiva (ICP).
+- **Configuración flexible**: Cambia entre proveedores sin modificar código.
+
+### Ejemplo de configuración (`config/agi_config.yaml`):
+```yaml
+agi:
+  provider: ollama  # o openai
+  model: llama3
+  prompt_template: |
+    EEG features: {attention}, {intent}. Your response:
