@@ -1,0 +1,14 @@
+agi:
+  provider: ollama  # o openai, pero para fine-tuning online recomendamos local con transformers
+  model: "meta-llama/Llama-3.2-3B-Instruct"  # Modelo base con pesos disponibles
+  prompt_template: |
+    EEG features: {attention}, {intent}, {alpha_theta_ratio}. Your response:
+
+finetuning:
+  enabled: true
+  buffer_size: 100          # Trials retenidos para experiencia
+  update_frequency: 10      # Cada cuántos trials hacer fine-tuning
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  checkpoint_dir: "./lora_checkpoints"
