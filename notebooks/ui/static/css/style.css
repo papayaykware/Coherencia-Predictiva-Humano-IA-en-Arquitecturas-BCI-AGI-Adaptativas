@@ -1,0 +1,102 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.controls {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.btn {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-primary {
+    background: #007bff;
+    color: white;
+}
+.btn-primary:hover { background: #0056b3; }
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+.btn-danger:hover { background: #a71d2a; }
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+}
+.bg-secondary { background: #6c757d; color: white; }
+.bg-success { background: #28a745; color: white; }
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.card h3 {
+    margin-top: 0;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+.intent-box {
+    text-align: center;
+    padding: 20px;
+}
+#intent-text {
+    font-size: 2em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15px;
+}
+.progress {
+    background: #e9ecef;
+    border-radius: 10px;
+    height: 20px;
+    overflow: hidden;
+}
+.progress-bar {
+    background: #28a745;
+    height: 100%;
+    text-align: center;
+    color: white;
+    line-height: 20px;
+}
+.agi-box {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    min-height: 100px;
+    margin-bottom: 15px;
+    font-style: italic;
+}
+.metric {
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 15px;
+}
