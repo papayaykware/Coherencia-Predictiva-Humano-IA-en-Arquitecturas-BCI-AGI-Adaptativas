@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPEA Dashboard - Coherencia Predictiva Humano-IA</title>
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Socket.IO cliente -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CPEA - Coherencia Predictiva Humano-IA</h1>
+            <p>Visualización en tiempo real | BCI + AGI Adaptativo</p>
+        </header>
+
+        <div class="controls">
+            <button id="btn-start" class="btn btn-primary">Iniciar Stream</button>
+            <button id="btn-stop" class="btn btn-danger" disabled>Detener</button>
+            <select id="channel-select">
+                <option value="0">Canal TP9</option>
+                <option value="1">Canal AF7</option>
+                <option value="2">Canal AF8</option>
+                <option value="3">Canal TP10</option>
+            </select>
+            <span id="status-badge" class="badge bg-secondary">Desconectado</span>
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Gráfico EEG -->
+            <div class="card">
+                <h3>Señal EEG en tiempo real</h3>
+                <canvas id="eeg-chart" width="800" height="300"></canvas>
+            </div>
+
+            <!-- Intent detectado -->
+            <div class="card">
+                <h3>Intent detectado</h3>
+                <div id="intent-display" class="intent-box">
+                    <span id="intent-text">---</span>
+                    <div class="progress">
+                        <div id="intent-prob-bar" class="progress-bar" style="width:0%">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Respuesta AGI -->
+            <div class="card">
+                <h3>Respuesta AGI</h3>
+                <div id="agi-response" class="agi-box">
+                    Esperando respuesta...
+                </div>
+                <div class="metric">
+                    <span>ICP (Coherencia Predictiva):</span>
+                    <strong id="icp-value">0.00</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
