@@ -1,0 +1,16 @@
+class AdaptiveAGI(BaseAGI):
+    def __init__(self, embedding_dim=128):
+        super().__init__(embedding_dim)
+        self.memory = {}
+
+    def forward(self, x, label=None):
+        key = tuple(np.round(x, 2))
+        
+        if key in self.memory:
+            return self.memory[key]
+        else:
+            emb = np.random.randn(self.embedding_dim)
+            if label is not None:
+                emb[label] += 2.0  # refuerzo supervisado
+            self.memory[key] = emb
+            return emb
