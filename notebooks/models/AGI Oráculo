@@ -1,0 +1,6 @@
+class OracleAGI(BaseAGI):
+    def forward(self, x, label=None):
+        assert label is not None, "Oracle necesita etiqueta"
+        vec = np.zeros(self.embedding_dim)
+        vec[label] = 1.0
+        return vec
