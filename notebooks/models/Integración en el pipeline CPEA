@@ -1,0 +1,17 @@
+eeg_sim = EEGSimulator()
+agi = AdaptiveAGI()
+projector = LatentProjector(input_dim=8*256)
+
+X, y = generate_dataset(eeg_sim)
+
+for i in range(len(X)):
+    eeg = X[i]
+    label = y[i]
+
+    eeg_latent = projector.project(eeg)
+    agi_latent = agi.forward(eeg_latent, label)
+
+    # Aquí se mide coherencia predictiva
+    coherence = np.dot(eeg_latent, agi_latent)
+
+    print(f"Sample {i} -> Coherence: {coherence}")
