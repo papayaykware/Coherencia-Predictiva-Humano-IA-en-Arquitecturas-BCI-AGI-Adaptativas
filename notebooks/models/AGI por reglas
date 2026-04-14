@@ -1,0 +1,6 @@
+class RuleBasedAGI(BaseAGI):
+    def forward(self, x, label=None):
+        if np.mean(x) > 0:
+            return np.ones(self.embedding_dim)
+        else:
+            return -np.ones(self.embedding_dim)
