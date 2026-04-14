@@ -1,0 +1,3 @@
+class RandomAGI(BaseAGI):
+    def forward(self, x, label=None):
+        return np.random.randn(self.embedding_dim)
