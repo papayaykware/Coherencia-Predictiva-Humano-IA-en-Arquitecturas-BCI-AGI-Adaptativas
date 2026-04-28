@@ -1,0 +1,239 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\geometry{margin=1in}
+
+\title{Latent Convergence and Exception-Based Learning:\\
+A Unified Framework of Predictive Coherence in Artificial and Biological Cognitive Systems}
+
+\author{Anonymous Author}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Recent work has shown that artificial intelligence models trained on different modalities converge toward geometrically equivalent latent structures, a phenomenon described as the Platonic Representation Hypothesis. However, this convergence alone does not explain learning dynamics nor functional divergence across systems.
+
+In this paper, we propose a unified framework integrating Predictive Coherence (CPEA) and Exception-Based Learning (TAE). We hypothesize that latent convergence arises from a global coherence attractor, while differentiation emerges from the handling of exceptional events.
+
+We introduce a mathematical formalization based on latent manifolds, incoherence metrics, and exception-driven deformation dynamics. Additionally, we outline an experimental program involving embedding analysis, continual learning, and EEG correlation.
+
+Our results suggest that intelligence—both artificial and biological—does not depend primarily on architecture, but on the interplay between structural convergence and adaptive response to exceptions.
+\end{abstract}
+
+\section{Introduction}
+
+The scaling of artificial intelligence models has revealed an unexpected phenomenon: architectures trained on different domains converge toward similar representational structures. This challenges the classical assumption that representations are strongly dependent on data modality and model design.
+
+The Platonic Representation Hypothesis proposes that such convergence reflects a shared underlying structure of reality. Under this view, models do not merely learn correlations but reconstruct a latent geometry common across domains.
+
+However, this perspective has a key limitation: it describes convergence but does not explain learning dynamics or functional divergence.
+
+In this work, we extend this hypothesis by integrating two frameworks:
+
+\begin{itemize}
+    \item Predictive Coherence (CPEA)
+    \item Exception-Based Learning (TAE)
+\end{itemize}
+
+We propose the following thesis:
+
+\begin{quote}
+Any sufficiently complex cognitive system converges toward a shared latent space minimizing global incoherence, while its evolution is driven by the handling of exceptions.
+\end{quote}
+
+\section{Related Work}
+
+\subsection{Latent Representations in AI}
+
+Modern AI models construct high-dimensional embeddings capturing semantic relationships. Recent studies show structural similarities across models trained on different modalities.
+
+\subsection{Predictive Processing}
+
+Predictive processing frameworks describe cognition as continuous minimization of prediction error, widely applied in neuroscience and machine learning.
+
+\subsection{Neuroscience of Surprise}
+
+Experimental evidence indicates that unexpected stimuli trigger plasticity and attention mechanisms, playing a central role in learning.
+
+\section{Theoretical Framework}
+
+\subsection{Latent Space as a Manifold}
+
+Let $\mathcal{M}$ be a differentiable manifold representing the latent space of a cognitive system. Each point $x \in \mathcal{M}$ corresponds to an internal representation.
+
+We define a metric:
+
+\begin{equation}
+d(x, y)
+\end{equation}
+
+interpreted as structural incoherence between representations.
+
+\subsection{Predictive Coherence (CPEA)}
+
+We define the coherence functional:
+
+\begin{equation}
+\mathcal{C} = \mathbb{E}[\|x - \hat{x}\|^2]
+\end{equation}
+
+where $\hat{x}$ is the predicted representation.
+
+Minimizing $\mathcal{C}$ leads to stabilization and convergence of the latent geometry.
+
+\subsection{Exception-Based Learning (TAE)}
+
+We define exceptional events as:
+
+\begin{equation}
+E_t = \{x_t : \|x_t - \hat{x}_t\| > \epsilon\}
+\end{equation}
+
+These events represent persistent structural deviations.
+
+The update dynamics are given by:
+
+\begin{equation}
+\Delta \mathcal{M} \propto E_t
+\end{equation}
+
+Thus, the latent manifold deforms locally in response to exceptions.
+
+\subsection{Theoretical Implication}
+
+From these definitions:
+
+\begin{itemize}
+    \item Global convergence is driven by coherence minimization
+    \item Functional differentiation emerges from exception dynamics
+\end{itemize}
+
+\section{Hypotheses}
+
+\begin{itemize}
+    \item H1: Distinct models converge toward isomorphic latent structures
+    \item H2: Convergence corresponds to minimization of predictive incoherence
+    \item H3: Model differences emerge in regions of high exception density
+    \item H4: EEG signals exhibit analogous dynamics to latent deformation
+\end{itemize}
+
+\section{Experimental Design}
+
+\subsection{Latent Convergence Analysis}
+
+We compare embeddings from vision and language models using:
+
+\begin{itemize}
+    \item Centered Kernel Alignment (CKA)
+    \item Procrustes analysis
+    \item Representational Similarity Analysis (RSA)
+\end{itemize}
+
+\subsection{Exception Injection}
+
+We introduce controlled anomalies into datasets and measure:
+
+\begin{itemize}
+    \item Local deformation of embeddings
+    \item Persistence of structural changes
+\end{itemize}
+
+\subsection{CPEA Architecture}
+
+We implement a model with coherence-based loss and track stability over time.
+
+\subsection{EEG Integration}
+
+We analyze EEG signals under expected and unexpected stimuli and compare them to artificial embeddings.
+
+\section{Implementation}
+
+\subsection{Technology Stack}
+
+\begin{itemize}
+    \item PyTorch
+    \item Avalanche (continual learning)
+    \item snnTorch (optional)
+\end{itemize}
+
+\subsection{Modular Architecture}
+
+\begin{enumerate}
+    \item Encoder (embedding generation)
+    \item Predictor (estimation of $\hat{x}$)
+    \item Metric (incoherence computation)
+    \item Exception detector
+    \item Manifold updater
+\end{enumerate}
+
+\section{Expected Results}
+
+We expect:
+
+\begin{itemize}
+    \item Structural convergence across models
+    \item Localization of exception-driven deformation
+    \item Partial correspondence with EEG dynamics
+\end{itemize}
+
+\section{Discussion}
+
+\subsection{Artificial Intelligence}
+
+The results suggest that architecture is secondary to learning dynamics.
+
+\subsection{Neuroscience}
+
+The brain can be interpreted as a system balancing coherence and exception adaptation.
+
+\subsection{Epistemology}
+
+Reality emerges as a stable solution in representation space rather than as direct input.
+
+\section{Limitations}
+
+\begin{itemize}
+    \item Difficulty in defining true exceptions
+    \item Noise in biological signals
+    \item Metric dependence
+\end{itemize}
+
+\section{Future Work}
+
+\begin{itemize}
+    \item Multimodal integration
+    \item Real-time adaptive systems
+    \item EEG-AGI closed-loop systems
+\end{itemize}
+
+\section{Conclusion}
+
+We propose a unified framework combining latent convergence and exception-based learning, showing that:
+
+\begin{quote}
+Intelligence emerges from the interaction between structural stability and adaptive response to exception.
+\end{quote}
+
+This perspective shifts the focus from architecture design to learning dynamics.
+
+\section*{References}
+
+\begin{itemize}
+    \item Representation convergence studies (arXiv, 2024)
+    \item Predictive processing literature (Friston et al.)
+    \item Neuroscience of surprise and plasticity
+    \item Continual learning frameworks (Avalanche)
+\end{itemize}
+
+\end{document}
