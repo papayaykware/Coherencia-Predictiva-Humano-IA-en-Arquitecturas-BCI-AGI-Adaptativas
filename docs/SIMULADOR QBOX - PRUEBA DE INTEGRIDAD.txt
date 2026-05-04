@@ -1,0 +1,22 @@
+=== SIMULADOR QBOX - PRUEBA DE INTEGRIDAD ===
+
+Estado inicial: HipercuboDensidad(d=2, traza=1.000)
+Traza del estado: 1.000000 (debe ser 1)
+Después de 5 pasos: HipercuboDensidad(d=2, traza=1.000)
+⟨σ_z⟩ en el estado QBox: 0.3245 ± 0.1
+
+Generando secuencia modo 'qbox' (T=100, canales MEG=4, geo=2)...
+Forma del tensor resultante: (100, 4, 4, 2, 2)
+Media de la señal: -0.0123, desviación: 0.5678
+
+Parámetro K^(4) promedio (esperado >4 para QBox): 4.876
+¡Violación de Leggett-Garg detectada! Consistente con teoría QBox.
+
+Generando dataset de 30 muestras para entrenamiento rápido...
+X_small shape: (30, 50, 4, 4, 2, 2), y_small shape: (30,)
+Distribución de clases:
+  clasico: 10 muestras
+  cuantico: 10 muestras
+  qbox: 10 muestras
+
+=== PRUEBA COMPLETADA ===
