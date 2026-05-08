@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# Logs
+logs/
+*.log
+
+# Data
+data/raw/
+data/temp/
+
+# Models
+models/checkpoints/
+models/weights/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# CUDA
+*.pt
+*.pth
+
+# Cache
+.cache/
+
+# Streamlit
+.streamlit/secrets.toml
