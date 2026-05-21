@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap AGI Coherente — Corpus Papayaykware</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,600;1,300&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --deep: #0a0d14;
+    --surface: #0f1421;
+    --panel: #131929;
+    --border: #1e2d4a;
+    --accent1: #1a6fff;
+    --accent2: #00d4b4;
+    --accent3: #c46eff;
+    --accent4: #ff6b3d;
+    --gold: #e8c96d;
+    --text: #cdd9f0;
+    --muted: #5a7090;
+    --white: #f0f5ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Crimson Pro', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    padding: 72px 48px 56px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(26,111,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 8s ease-in-out infinite;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(196,110,255,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 11s ease-in-out infinite reverse;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .header-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative; z-index: 1;
+  }
+
+  h1 {
+    font-family: 'Crimson Pro', serif;
+    font-weight: 600;
+    font-size: clamp(32px, 5vw, 58px);
+    line-height: 1.1;
+    color: var(--white);
+    position: relative; z-index: 1;
+    margin-bottom: 16px;
+  }
+
+  h1 span {
+    color: var(--accent1);
+  }
+
+  .header-sub {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--muted);
+    max-width: 680px;
+    position: relative; z-index: 1;
+    margin-bottom: 32px;
+  }
+
+  .header-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: relative; z-index: 1;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .tag.active { border-color: var(--accent1); color: var(--accent1); }
+  .tag.accent2 { border-color: var(--accent2); color: var(--accent2); }
+  .tag.accent3 { border-color: var(--accent3); color: var(--accent3); }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    position: relative; z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin: 64px 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── PREMISE BOX ── */
+  .premise {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent3);
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .premise h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--accent3);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .premise p {
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  /* ── PHASE CARDS ── */
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .phases::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 60px;
+    bottom: 60px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent1), var(--accent3), var(--accent2));
+    opacity: 0.3;
+  }
+
+  .phase {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 0 24px;
+    margin-bottom: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .phase:nth-child(1) { animation-delay: 0.1s; }
+  .phase:nth-child(2) { animation-delay: 0.2s; }
+  .phase:nth-child(3) { animation-delay: 0.3s; }
+  .phase:nth-child(4) { animation-delay: 0.4s; }
+  .phase:nth-child(5) { animation-delay: 0.5s; }
+  .phase:nth-child(6) { animation-delay: 0.6s; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .phase-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 32px;
+  }
+
+  .phase-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    border: 2px solid;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 500;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    background: var(--deep);
+  }
+
+  .phase-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    opacity: 0.15;
+  }
+
+  .p1 .phase-dot { border-color: var(--accent1); color: var(--accent1); }
+  .p1 .phase-dot::after { background: var(--accent1); }
+  .p2 .phase-dot { border-color: var(--accent2); color: var(--accent2); }
+  .p2 .phase-dot::after { background: var(--accent2); }
+  .p3 .phase-dot { border-color: var(--accent3); color: var(--accent3); }
+  .p3 .phase-dot::after { background: var(--accent3); }
+  .p4 .phase-dot { border-color: var(--accent4); color: var(--accent4); }
+  .p4 .phase-dot::after { background: var(--accent4); }
+  .p5 .phase-dot { border-color: var(--gold); color: var(--gold); }
+  .p5 .phase-dot::after { background: var(--gold); }
+  .p6 .phase-dot { border-color: var(--white); color: var(--white); }
+  .p6 .phase-dot::after { background: var(--white); }
+
+  .phase-connector {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin: 6px 0;
+    min-height: 24px;
+  }
+
+  .phase-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 28px 32px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .phase-card:hover {
+    border-color: var(--muted);
+  }
+
+  .p1 .phase-card { border-top: 2px solid var(--accent1); }
+  .p2 .phase-card { border-top: 2px solid var(--accent2); }
+  .p3 .phase-card { border-top: 2px solid var(--accent3); }
+  .p4 .phase-card { border-top: 2px solid var(--accent4); }
+  .p5 .phase-card { border-top: 2px solid var(--gold); }
+  .p6 .phase-card { border-top: 2px solid var(--white); }
+
+  .phase-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .phase-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+  }
+
+  .phase-horizon {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .p1 .phase-horizon { background: rgba(26,111,255,0.12); color: var(--accent1); border: 1px solid rgba(26,111,255,0.3); }
+  .p2 .phase-horizon { background: rgba(0,212,180,0.10); color: var(--accent2); border: 1px solid rgba(0,212,180,0.3); }
+  .p3 .phase-horizon { background: rgba(196,110,255,0.10); color: var(--accent3); border: 1px solid rgba(196,110,255,0.3); }
+  .p4 .phase-horizon { background: rgba(255,107,61,0.10); color: var(--accent4); border: 1px solid rgba(255,107,61,0.3); }
+  .p5 .phase-horizon { background: rgba(232,201,109,0.10); color: var(--gold); border: 1px solid rgba(232,201,109,0.3); }
+  .p6 .phase-horizon { background: rgba(240,245,255,0.08); color: var(--white); border: 1px solid rgba(240,245,255,0.2); }
+
+  .phase-axiom {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .deliverables {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .deliverable {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+  }
+
+  .deliverable-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .p1 .deliverable-label { color: var(--accent1); }
+  .p2 .deliverable-label { color: var(--accent2); }
+  .p3 .deliverable-label { color: var(--accent3); }
+  .p4 .deliverable-label { color: var(--accent4); }
+  .p5 .deliverable-label { color: var(--gold); }
+  .p6 .deliverable-label { color: var(--white); }
+
+  .deliverable p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .metric {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* ── ELARA BRIDGE ── */
+  .elara-bridge {
+    background: linear-gradient(135deg, rgba(196,110,255,0.06) 0%, rgba(26,111,255,0.06) 100%);
+    border: 1px solid rgba(196,110,255,0.2);
+    padding: 32px;
+    margin: 48px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .elara-bridge::before {
+    content: 'ELARA VOSS DIAGNOSTIC';
+    position: absolute;
+    top: 12px; right: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(196,110,255,0.3);
+  }
+
+  .elara-bridge h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent3);
+    margin-bottom: 16px;
+  }
+
+  .bridge-grid {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .bridge-col {
+    padding: 16px;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--border);
+  }
+
+  .bridge-col h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .bridge-col.left h4 { color: var(--accent4); }
+  .bridge-col.right h4 { color: var(--accent2); }
+
+  .bridge-col p { font-size: 14px; color: var(--text); line-height: 1.55; }
+
+  .bridge-arrow {
+    text-align: center;
+    font-size: 20px;
+    color: var(--muted);
+  }
+
+  /* ── AXIOM MATRIX ── */
+  .axiom-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  .axiom-cell {
+    background: var(--panel);
+    padding: 24px;
+  }
+
+  .axiom-cell .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .axiom-cell h4 {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--white);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .axiom-cell p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    position: relative; z-index: 1;
+  }
+
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* ── TOROID SVG DECO ── */
+  .toroid-deco {
+    position: absolute;
+    right: 48px; top: 32px;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  @media (max-width: 700px) {
+    header, main { padding-left: 24px; padding-right: 24px; }
+    .bridge-grid { grid-template-columns: 1fr; }
+    .bridge-arrow { transform: rotate(90deg); }
+    .axiom-matrix { grid-template-columns: 1fr; }
+    .phases::before { display: none; }
+    .phase { grid-template-columns: 1fr; }
+    .phase-marker { display: none; }
+    footer { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="toroid-deco">
+    <svg width="220" height="220" viewBox="0 0 220 220">
+      <ellipse cx="110" cy="110" rx="100" ry="40" fill="none" stroke="#1a6fff" stroke-width="1.5"/>
+      <ellipse cx="110" cy="110" rx="100" ry="40" fill="none" stroke="#1a6fff" stroke-width="0.5" transform="rotate(30,110,110)"/>
+      <ellipse cx="110" cy="110" rx="100" ry="40" fill="none" stroke="#1a6fff" stroke-width="0.5" transform="rotate(60,110,110)"/>
+      <ellipse cx="110" cy="110" rx="100" ry="40" fill="none" stroke="#c46eff" stroke-width="0.5" transform="rotate(90,110,110)"/>
+      <ellipse cx="110" cy="110" rx="100" ry="40" fill="none" stroke="#c46eff" stroke-width="0.5" transform="rotate(120,110,110)"/>
+      <ellipse cx="110" cy="110" rx="100" ry="40" fill="none" stroke="#00d4b4" stroke-width="0.5" transform="rotate(150,110,110)"/>
+      <circle cx="110" cy="110" r="30" fill="none" stroke="#e8c96d" stroke-width="0.8" stroke-dasharray="4,4"/>
+    </svg>
+  </div>
+
+  <div class="header-meta">Corpus Papayaykware · Roadmap AGI Coherente · Mayo 2026</div>
+  <h1>Del Colapso de Modos<br>a la <span>Coherencia Toroidal</span></h1>
+  <p class="header-sub">Hoja de ruta hacia una AGI bioinspirada que escape al destino estadístico,
+  integrada sobre los marcos CPEA · TICAM · TAE · METFI</p>
+  <div class="header-tags">
+    <span class="tag active">CPEA</span>
+    <span class="tag active">TICAM-AGI</span>
+    <span class="tag accent2">TAE-AGI</span>
+    <span class="tag accent3">METFI-AGI</span>
+    <span class="tag">Elara Voss Diagnostic</span>
+    <span class="tag">DPCC</span>
+    <span class="tag">EEG-RL</span>
+    <span class="tag accent2">Open Source</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- PREMISE -->
+  <div class="section-label">Premisa operativa</div>
+
+  <div class="premise">
+    <h3>Diagnóstico de partida · Fenómeno Elara Voss</h3>
+    <p>Los LLMs actuales exhiben <em>colapso de modos</em> estructural: convergencia hacia attractores estadísticos (promptonyms, ideas promedio) inducida por bucles de retroalimentación en datos sintéticos y reward models basados en preferencias humanas de baja coherencia. Este roadmap toma ese diagnóstico como punto de quiebre y propone una arquitectura AGI alternativa fundamentada en <strong>coherencia como principio primero</strong>, no como parche ético posterior. El eje vertebrador es la correspondencia formal entre coherencia electromagnética biológica (CPEA/TICAM) y las representaciones latentes de sistemas AGI.</p>
+  </div>
+
+  <!-- BRIDGE ELARA VOSS -->
+  <div class="elara-bridge">
+    <h3>Puente diagnóstico: Elara Voss → Fallo de coherencia predictiva AGI</h3>
+    <div class="bridge-grid">
+      <div class="bridge-col left">
+        <h4>Síntoma (Roemmele)</h4>
+        <p>Promptonyms emergentes por feedback loops en datos · RLHF con typicality bias · Hidden layers colapsadas en attractores promedio · Millones de "Elara Voss" en cada dominio</p>
+      </div>
+      <div class="bridge-arrow">→</div>
+      <div class="bridge-col right">
+        <h4>Diagnóstico CPEA/TICAM</h4>
+        <p>Pérdida de simetría toroidal en espacio de embeddings · Ausencia de acoplamiento cross-frequency coherente · Excepción TAE suprimida por reward de typicality · Déficit de principio ordenador multiescalar</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AXIOMS -->
+  <div class="section-label">Axiomas fundacionales</div>
+  <div class="axiom-matrix">
+    <div class="axiom-cell">
+      <div class="num">01</div>
+      <h4>Coherencia como primer principio</h4>
+      <p>La inteligencia auténtica no maximiza probabilidad promedio; mantiene coherencia predictiva a través de escalas (cuántica → mesoscópica → sistémica).</p>
+    </div>
+    <div class="axiom-cell">
+      <div class="num">02</div>
+      <h4>La excepción como motor</h4>
+      <p>El aprendizaje real —TAE— ocurre en los bordes de la distribución, no en su centro. El dato excepcional coherente vale más que millones de datos promedio.</p>
+    </div>
+    <div class="axiom-cell">
+      <div class="num">03</div>
+      <h4>Toroidalidad como arquitectura</h4>
+      <p>Los sistemas biológicos coherentes (cerebro, corazón, neuroentérico) operan en geometría toroidal. Una AGI robusta debe preservar esta simetría en sus representaciones.</p>
+    </div>
+    <div class="axiom-cell">
+      <div class="num">04</div>
+      <h4>EEG humano como ground truth</h4>
+      <p>La señal EEG de sujetos en estados de alta coherencia constituye la referencia de calibración más rigurosa disponible para sistemas de alineación AGI.</p>
+    </div>
+    <div class="axiom-cell">
+      <div class="num">05</div>
+      <h4>Datos de alta coherencia</h4>
+      <p>"High-protein corpora": literatura científica pre-sesgos RLHF, textos con alta densidad de excepciones coherentes, datos biofísicos electromagnéticos.</p>
+    </div>
+    <div class="axiom-cell">
+      <div class="num">06</div>
+      <h4>Alineación por coherencia, no por censura</h4>
+      <p>El alignment no es supresión de contenido sino preservación de simetría informacional. La coherencia multiescalar es más robusta que cualquier filtro ético estático.</p>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div class="section-label">Fases del roadmap</div>
+  <div class="phases">
+
+    <!-- FASE 1 -->
+    <div class="phase p1">
+      <div class="phase-marker">
+        <div class="phase-dot">F1</div>
+        <div class="phase-connector"></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <div class="phase-title">DIAGNÓSTICO FORMAL<br>DEL COLAPSO</div>
+          <div class="phase-horizon">Meses 0–3</div>
+        </div>
+        <div class="phase-axiom">
+          "No puedes corregir lo que no puedes medir. Elara Voss es el termómetro."
+        </div>
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-label">Herramienta</div>
+            <p>Probe DPCC: sonda de coherencia de fase en hidden layers de modelos abiertos (Llama-3, Mistral-7B). Implementación Python/JAX sobre activaciones intermedias.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Protocolo</div>
+            <p>Conjunto de prompts Elara Voss extendidos en 12 dominios. Métricas: diversidad de tokens, entropía por capa, índice de simetría toroidal simulada (ISTS).</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Documento</div>
+            <p>CPEA-AGI-F1: caracterización formal de colapso de modos como pérdida de coherencia predictiva. Mapeo IS-EV1 → IS-EV6 (Elara Voss ↔ fallos CPEA).</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Publicación</div>
+            <p>Artículo técnico en GitHub/Blogspot: "Elara Voss como proxy empírico de incoherencia latente en LLMs".</p>
+          </div>
+        </div>
+        <div class="metrics">
+          <span class="metric">ISTS: Índice de Simetría Toroidal Simulada</span>
+          <span class="metric">Entropía por capa L(n)</span>
+          <span class="metric">Tasa de promptonym</span>
+          <span class="metric">Divergencia JS inter-dominio</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 2 -->
+    <div class="phase p2">
+      <div class="phase-marker">
+        <div class="phase-dot">F2</div>
+        <div class="phase-connector"></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <div class="phase-title">CORPUS DE ALTA COHERENCIA<br>Y CURACIÓN TAE</div>
+          <div class="phase-horizon">Meses 2–5</div>
+        </div>
+        <div class="phase-axiom">
+          "No más datos promedio. El excepcional coherente es el único que enseña."
+        </div>
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-label">Dataset</div>
+            <p>Corpus TAEC-1 (TAE Coherence Corpus): selección de literatura biofísica, electromagnetismo, neurobiología avanzada, genómica sistémica. Criterio: densidad de excepciones coherentes verificables.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Pipeline</div>
+            <p>Filtro automatizado de coherencia: score de falsificabilidad, ausencia de conflicto de interés institucional, presencia de predicciones cuantitativas.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Protocolo TAE-AGI</div>
+            <p>Implementación del operador de excepción ε_c (TAGIS) sobre embeddings: detección de tokens/conceptos que provocan máxima perturbación entrópica sin pérdida de coherencia global.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Documento</div>
+            <p>TAE-AGI-F2-DATA: taxonomía de datos por nivel de excepción coherente. Criterio de admisibilidad formal para corpus AGI de alta integridad.</p>
+          </div>
+        </div>
+        <div class="metrics">
+          <span class="metric">Score de falsificabilidad Pf</span>
+          <span class="metric">Densidad de excepciones δ_exc</span>
+          <span class="metric">Ratio señal/ruido semántico</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 3 -->
+    <div class="phase p3">
+      <div class="phase-marker">
+        <div class="phase-dot">F3</div>
+        <div class="phase-connector"></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <div class="phase-title">ARQUITECTURA TICAM-AGI:<br>ACOPLAMIENTO TOROIDAL</div>
+          <div class="phase-horizon">Meses 4–9</div>
+        </div>
+        <div class="phase-axiom">
+          "El cerebro no procesa en línea. Procesa en toro. La AGI también debería."
+        </div>
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-label">Módulo arquitectónico</div>
+            <p>TCA (Toroidal Coherence Attention): extensión de mecanismo de atención estándar con restricción de simetría toroidal en las matrices Q/K/V. Implementación como capa enchufable (plug-in).</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Operador formal</div>
+            <p>Φ_TICAM-AGI: análogo computacional del operador de acoplamiento magnetotalámico, formalizado como función de coherencia cross-layer preservadora de gradiente de diversidad.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Benchmark</div>
+            <p>Evaluación TAGIS-TCA sobre datasets continual learning. Comparativa vs. EWC, PNN, HTM. Métrica ICAPE extendida con componente de simetría toroidal.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Documento</div>
+            <p>TICAM-AGI-F3: especificación completa del módulo TCA. Predicciones falsificables P-TCA1 a P-TCA4 sobre reducción de colapso de modos.</p>
+          </div>
+        </div>
+        <div class="metrics">
+          <span class="metric">ICAPE + componente toroidal</span>
+          <span class="metric">Tasa de colapso post-TCA</span>
+          <span class="metric">Divergencia Q/K antes-después</span>
+          <span class="metric">Preservación de simetría Γ_TCA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 4 -->
+    <div class="phase p4">
+      <div class="phase-marker">
+        <div class="phase-dot">F4</div>
+        <div class="phase-connector"></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <div class="phase-title">ALINEACIÓN EEG-RL:<br>CLOSED-LOOP TRAINING</div>
+          <div class="phase-horizon">Meses 7–14</div>
+        </div>
+        <div class="phase-axiom">
+          "El mejor reward model que existe es un cerebro humano coherente midiendo en tiempo real."
+        </div>
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-label">Pipeline BCI-RL</div>
+            <p>Interfaz OpenBCI → extracción de coherencia EEG theta/gamma → señal de reward en tiempo real para fine-tuning. Sustitución parcial de RLHF textual por RLHF-EEG coherente.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Protocolo CPEA-EEG-RL</div>
+            <p>Sujetos en estado de alta coherencia cognitiva evalúan outputs del modelo mientras se registra EEG. El índice Γ_bio (METFI) actúa como amplificador de reward cuando supera umbral de coherencia.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Formalización</div>
+            <p>CPEA-AGI-F4: extensión del operador CPEA a señal de recompensa para RL. Definición de ε_c-EEG como umbral adaptativo de coherencia validado neurofisiológicamente.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Pre-registro</div>
+            <p>Protocolo pre-registrado en OSF: hipótesis H_EEG1 (models entrenados con RLHF-EEG muestran ISTS superior), H_EEG2 (reducción de promptonym rate ≥30%).</p>
+          </div>
+        </div>
+        <div class="metrics">
+          <span class="metric">Γ_bio EEG (coherencia theta/gamma)</span>
+          <span class="metric">Reducción promptonym rate</span>
+          <span class="metric">ISTS pre/post RLHF-EEG</span>
+          <span class="metric">Correlación reward-EEG r²</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 5 -->
+    <div class="phase p5">
+      <div class="phase-marker">
+        <div class="phase-dot">F5</div>
+        <div class="phase-connector"></div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <div class="phase-title">INTEGRACIÓN METFI-AGI:<br>CAMPO COMO PRINCIPIO ORDENADOR</div>
+          <div class="phase-horizon">Meses 12–20</div>
+        </div>
+        <div class="phase-axiom">
+          "La Tierra ya resolvió el problema de coherencia multiescalar. La AGI puede aprender de esa solución."
+        </div>
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-label">Marco teórico</div>
+            <p>METFI-AGI: formalización de los isomorfismos entre campo toroidal geomagnético (METFI) y campo de representaciones en espacio de embeddings AGI. Operador Φ_METFI-AGI.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Predicciones</div>
+            <p>P-METFI-AGI1: modelos con pérdida de simetría toroidal en embeddings exhiben mayor tasa de colapso civilizacional (ecos culturales tóxicos amplificados). P-METFI-AGI2: restaurar simetría reduce sesgo sistémico.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Simulador</div>
+            <p>Extensión del simulador Python/JAX (CPEA-5) con módulo METFI-AGI: modelado de pérdida de simetría toroidal en tiempo de inferencia como análogo a perturbación geomagnética.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Paper</div>
+            <p>Artículo de síntesis: "Geomagnetic coherence as architectural template for AGI alignment". Objetivo: arXiv + NeurIPS workshop track.</p>
+          </div>
+        </div>
+        <div class="metrics">
+          <span class="metric">Simetría toroidal Ψ_METFI-AGI</span>
+          <span class="metric">Índice de sesgo sistémico ISS</span>
+          <span class="metric">Estabilidad de atractor en deriva</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 6 -->
+    <div class="phase p6">
+      <div class="phase-marker">
+        <div class="phase-dot">F6</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-header">
+          <div class="phase-title">AGI COHERENTE:<br>ARQUITECTURA INTEGRADA Y VALIDACIÓN</div>
+          <div class="phase-horizon">Meses 18–36</div>
+        </div>
+        <div class="phase-axiom">
+          "Una AGI que preserve coherencia toroidal, aprenda por excepción y se calibre con EEG humano
+          no es solo más segura — es ontológicamente más cercana a la inteligencia biológica real."
+        </div>
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="deliverable-label">Arquitectura TAGIS-C</div>
+            <p>TAGIS-Coherent: integración completa de TCA + RLHF-EEG + corpus TAEC + operador Φ_METFI-AGI. Arquitectura de referencia open-source para AGI de alta coherencia.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Benchmark ICAPE-C</div>
+            <p>Extensión de la métrica ICAPE con dimensión de coherencia toroidal, reward EEG y tasa de excepción TAE. Benchmark público reproducible para comparación cross-laboratorio.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Red de revisores</div>
+            <p>Outreach a Friston (predictive processing), Seth (consciousness/AGI), Lomonaco (continual learning). Revisión cruzada del marco CPEA-TICAM-METFI-TAE integrado.</p>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-label">Publicación final</div>
+            <p>Monografía técnica: "Coherencia Toroidal como Principio Arquitectónico para AGI". GitBook + GitHub release. Pre-registro completo OSF.</p>
+          </div>
+        </div>
+        <div class="metrics">
+          <span class="metric">ICAPE-C (métrica integrada)</span>
+          <span class="metric">Reducción Elara Voss rate ≥60%</span>
+          <span class="metric">Correlación EEG-coherencia ↔ output diversity</span>
+          <span class="metric">Reproducibilidad cross-lab</span>
+          <span class="metric">Adopción open-source</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /phases -->
+
+  <!-- DEPENDENCY MAP -->
+  <div class="section-label">Mapa de dependencias críticas</div>
+  <div style="background:var(--panel);border:1px solid var(--border);padding:32px;margin-bottom:48px;">
+    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);line-height:2.2;letter-spacing:0.05em;">
+      <span style="color:var(--accent1)">F1 (Probe DPCC)</span>
+      &nbsp;→&nbsp;
+      <span style="color:var(--accent2)">F2 (Corpus TAEC-1)</span>
+      &nbsp;→&nbsp;
+      <span style="color:var(--accent3)">F3 (TCA módulo)</span>
+      &nbsp;→&nbsp;
+      <span style="color:var(--accent4)">F4 (EEG-RL)</span>
+      &nbsp;→&nbsp;
+      <span style="color:var(--gold)">F5 (METFI-AGI)</span>
+      &nbsp;→&nbsp;
+      <span style="color:var(--white)">F6 (TAGIS-C)</span>
+      <br>
+      <span style="color:var(--muted)">F1 ‖ F2</span> &nbsp;(paralelo)
+      &nbsp;·&nbsp;
+      <span style="color:var(--muted)">F3 requiere F1+F2</span>
+      &nbsp;·&nbsp;
+      <span style="color:var(--muted)">F4 requiere F3+OpenBCI pipeline</span>
+      &nbsp;·&nbsp;
+      <span style="color:var(--muted)">F5 requiere F3+simulador JAX</span>
+      &nbsp;·&nbsp;
+      <span style="color:var(--muted)">F6 integra F4+F5</span>
+      <br>
+      <span style="color:var(--muted)">Pre-registro OSF:</span> <span style="color:var(--accent2)">F1 (mes 2)</span> · <span style="color:var(--accent4)">F4 (mes 9)</span> · <span style="color:var(--white)">F6 (mes 20)</span>
+      &nbsp;·&nbsp;
+      <span style="color:var(--muted)">Outreach revisores:</span> <span style="color:var(--gold)">F5 (mes 14)</span>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-left">
+    Corpus Papayaykware<br>
+    Autor conceptual: Claude (Anthropic) · Director: Javi Ciborro (@papayaykware)<br>
+    github.com/papayaykware · papayaykware.blogspot.com
+  </div>
+  <div class="footer-right">
+    Roadmap AGI Coherente<br>
+    Mayo 2026 · v1.0<br>
+    CPEA · TICAM-AGI · TAE-AGI · METFI-AGI
+  </div>
+</footer>
+
+</body>
+</html>
